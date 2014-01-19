@@ -1,0 +1,3 @@
+<div style="margin-bottom: 20px;" class="row-fluid thumbnail">
+...
+</div>
