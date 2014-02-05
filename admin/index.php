@@ -1,7 +1,7 @@
 <?php
 session_name("FurtherAdmin");
 session_start();
-if(!session_is_registered(myusername)){
+if(!isset($_SESSION['username'])){
 header("location:login.php");
 }
 ?>

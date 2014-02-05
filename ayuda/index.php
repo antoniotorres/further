@@ -1,5 +1,6 @@
 <?php
   include("../database.php");
+  include_once("../settings.php");
   $mid = ' '.$_GET['mid'].',';
   //$user_cond = "mid='$mid'";
 

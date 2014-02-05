@@ -1,10 +1,10 @@
 <?php
 
 $host="localhost"; // Host name 
-$username="c2_further"; // Mysql username 
-$password="furthercsc"; // Mysql password 
-$db_name="c2_db"; // Database name 
-$tbl_name="users"; // Table name 
+$username="username"; // Mysql username 
+$password="password"; // Mysql password 
+$db_name="database"; // Database name 
+$tbl_name="admin_users"; // Table name 
 
 // Connect to server and select databse.
 mysql_connect("$host", "$username", "$password")or die("cannot connect"); 
@@ -31,8 +31,8 @@ if($count==1){
 // Register $myusername, $mypassword and redirect to file "login_success.php"
 session_name("FurtherAdmin");
 session_start();
-session_register("myusername");
-session_register("mypassword"); 
+$_SESSION['username'] = $myusername;
+$_SESSION['password'] = $mypassword; 
 header("location:index.php");
 }
 else {

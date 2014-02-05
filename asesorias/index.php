@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../database.php");
+include_once("../settings.php")
 ?>
 <!DOCTYPE html>
 <html>
@@ -67,7 +68,7 @@ include("../database.php");
   </head>
 
   <body>
-    <?php include '../header.php'; ?>
+    <?php include "../header.php"; ?>
     <div class="container" id="bb">
       <br/>
       <div class="row">

@@ -1,7 +1,9 @@
 <?php
+error_reporting(E_ALL);
 session_start();
   include("database.php");
 ?>
+<?php include_once("settings.php") ?>
 <!DOCTYPE html>
 <html>
   <head>
