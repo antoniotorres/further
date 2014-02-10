@@ -1,5 +1,6 @@
 <?php
     include("../database.php");
+    include_once("../settings.php");
     $mid = ' '.$_GET['mid'].',';
     $user_cond = "INSTR(mid,'$mid')>0";
     $query2 = mysql_query("SELECT * FROM banco_videos WHERE aprobado = '1' AND $user_cond AND enable = '1'");

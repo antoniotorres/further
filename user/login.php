@@ -1,7 +1,11 @@
 <?php
+  include("../database.php");
+  include_once("../settings.php");
+
+session_name("FurtherUser");
 session_start();
-if(session_is_registered(myusername)){
-header("location:http://www.furthercsc.com/user/");
+if(isset($_SESSION['username'])){
+header("location:$further_host/user/");
 }
 ?>
 <!DOCTYPE html>
@@ -14,7 +18,7 @@ header("location:http://www.furthercsc.com/user/");
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="http://www.furthercsc.com/css/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo $further_host;?>/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 40px;
@@ -105,9 +109,9 @@ header("location:http://www.furthercsc.com/user/");
 	  </div>
 	  <?php } ?>
       <div class="span4 offset1">
-	<form class="form-signup" id="form-signup" action="http://www.furthercsc.com/user/register.php" method="get" name="form1">
+	<form class="form-signup" id="form-signup" action="<?php echo $further_host;?>/user/register.php" method="get" name="form1">
 	  <h2 class="form-signin-heading">Crear Cuenta</h2>
-	  <input name="regusername" type="text" class="input-block-level required" id="regusername" placeholder="Matricula A00000000"><p id="message"></p>
+	  <input name="regusername" type="text" class="input-block-level" id="regusername" placeholder="Matricula A00000000"><p id="message"></p>
 	  <input name="regname" type="text" class="input-block-level required" id="txtbox" placeholder="Nombre">
 	  <input name="regapellido" type="text" class="input-block-level required" id="txtbox" placeholder="Apellido">
 	  <input name="regpassword" type="password" class="input-block-level required password" id="regpassword" placeholder="Contra&ntilde;a"><p id="pwdmessage"></p>
@@ -130,7 +134,7 @@ header("location:http://www.furthercsc.com/user/");
 	</form>
       </div>
       <div class="span4">
-	<form class="form-signin" action="http://www.furthercsc.com/user/checklogin.php" method="post" name="form1">
+	<form class="form-signin" action="<?php echo $further_host;?>/user/checklogin.php" method="post" name="form1">
 	<?php if($_GET["login"]=="fail") { ?>
 	  <div class="alert alert-block">
 	    <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -139,7 +143,7 @@ header("location:http://www.furthercsc.com/user/");
 	  </div>
 	<?php } ?>
 	  <h2 class="form-signin-heading">Favor Ingresar</h2>
-	  <input name="myusername" type="text" class="input-block-level required" id="txtbox" placeholder="Matricula A00000000">
+	  <input name="myusername" type="text" class="input-block-level required" id="txtbox" placeholder="Email - pepito@ejemplo.com">
 	  <input name="mypassword" type="password" class="input-block-level required password" id="txtbox" placeholder="Password">
 	  <label class="checkbox">
 	    <input name="remember" type="checkbox" id="remember" value="1">Recordarme
@@ -176,9 +180,8 @@ header("location:http://www.furthercsc.com/user/");
 		 url:"check.php",
 		 data:"username="+username,
 		     success:function(data){
-			$("#correoitesm").html("<p><i class=\"icon-ok\"></i>Correo del Tec - para mandar confirmacion: "+username+"@itesm.mx</p>");
 		     if(data==0){
-			 $("#message").html("<div class=\"alert alert-success\"><i class=\"icon-ok\"></i> Usuario Disponible</div>");
+			 $("#message").html("<div class=\"alert alert-success\"><i class=\"icon-ok\"></i> Matricula Disponible</div>");
 		     }
 		     else if(data==-1){
 			 $("#message").html("<div class=\"alert alert-error\"><i class=\"icon-remove\"></i> No es una matricula.</div>");
@@ -187,6 +190,19 @@ header("location:http://www.furthercsc.com/user/");
 			 $("#message").html("<div class=\"alert alert-error\"><i class=\"icon-remove\"></i> Usuario No Disponible</div>");
 		     }
 		 }
+	      });
+
+	 });
+
+      });
+      $(document).ready(function(){
+	$("#regcorreo").change(function(){
+	  $("#pwdmessage").html("<div class=\"alert\"><i class=\"icon-refresh\"></i> Checando</div>");
+	  var correo=$("#regcorreo").val();
+	   $.ajax({
+		     success:function(){
+		     $("#correoitesm").html("<p><i class=\"icon-ok\"></i>Correo del Tec - para mandar confirmacion: "+correo+"</p>");
+		     }
 	      });
 
 	 });

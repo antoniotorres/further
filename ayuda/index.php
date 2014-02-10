@@ -111,7 +111,7 @@
 	<div class="span3">
 	    <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li><a href="http://www.furthercsc.com/ayuda/">INDEX</a></li>
+              <li><a href="<?php echo $further_host;?>/ayuda/">INDEX</a></li>
 	      <li class="nav-header">Por Materia</li>
 	      <?php
 	      $query3 = mysql_query("SELECT * FROM lista_categorias");

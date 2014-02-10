@@ -1,10 +1,13 @@
 <?php
-session_start();
-if(!session_is_registered(myusername)){
-header("location:http://www.furthercsc.com/user/login.php");
-}
   include("../database.php");
   include("gravator.php");
+  include_once("../settings.php");
+
+session_name("FurtherUser");
+session_start();
+if(!isset($_SESSION['username'])){
+header("location:$further_host/user/login.php");
+}
   function Materia_Name($mid)
   {
     $user_cond = "id='$mid'";
@@ -147,8 +150,8 @@ header("location:http://www.furthercsc.com/user/login.php");
 		<ul class="nav nav-tabs">
 		  <li class="active"><a href="#tab1" data-toggle="tab">Perfil</a></li>
 <?php
-$matricula = $_SESSION['userlogin'];
-$user_cond = "matricula='$matricula'";
+$username = $_SESSION['username'];
+$user_cond = "email='$username'";
 $query = mysql_query("SELECT * FROM web_users WHERE $user_cond AND asesor='1'");
 $numrows=@mysql_num_rows($query);
 if($numrows != 0) {
@@ -160,8 +163,8 @@ while ($result = mysql_fetch_array($query)) {
 		<div class="tab-content">
 		    <div class="tab-pane active" id="tab1">
 		      <?php
-		      $matricula = $_SESSION['userlogin'];
-		      $user_cond = "matricula='$matricula'";
+		      $matricula = $_SESSION['username'];
+		      $user_cond = "email='$matricula'";
 		      $query = mysql_query("SELECT * FROM web_users WHERE $user_cond");
 		      $numrows=@mysql_num_rows($query);
 		      if($numrows != 0) {
@@ -180,8 +183,8 @@ while ($result = mysql_fetch_array($query)) {
 		      <p><b>Email ITESM:</b> <?php echo $uemail_itesm;?></p>
 		    </div>
 <?php
-$matricula = $_SESSION['userlogin'];
-$user_cond = "matricula='$matricula'";
+$matricula = $_SESSION['username'];
+$user_cond = "email='$matricula'";
 $query = mysql_query("SELECT * FROM web_users WHERE $user_cond AND asesor='1'");
 $numrows=@mysql_num_rows($query);
 if($numrows != 0) {
@@ -275,10 +278,10 @@ while ($result = mysql_fetch_array($query)) {
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-    <script src="http://www.furthercsc.com/js/bootstrap.js"></script>
-    <script src="http://www.furthercsc.com/js/jquery-ui-timepicker-addon.js"></script>
+    <script src="<?php echo $further_host;?>/jquery-1.7.2.min.js"></script>
+    <script src="<?php echo $further_host;?>/ui/1.8.18/jquery-ui.min.js"></script>
+    <script src="<?php echo $further_host;?>/js/bootstrap.js"></script>
+    <script src="<?php echo $further_host;?>/js/jquery-ui-timepicker-addon.js"></script>
     <script>
       $(function() {
       $('#datepicker').datetimepicker({

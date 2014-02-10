@@ -1,9 +1,12 @@
 <?php
-
+  include("../database.php");
+  include("gravator.php");
+  include_once("../settings.php");
+  
 $host="localhost"; // Host name 
-$username="c2_further"; // Mysql username 
-$password="furthercsc"; // Mysql password 
-$db_name="c2_db"; // Database name 
+$username="username"; // Mysql username 
+$password="password"; // Mysql password 
+$db_name="database"; // Database name 
 $tbl_name="web_users"; // Table name 
 
 // Connect to server and select databse.
@@ -20,7 +23,7 @@ $mypassword = stripslashes($mypassword);
 $myusername = mysql_real_escape_string($myusername);
 $mypassword = mysql_real_escape_string($mypassword);
 $encypt_password=md5($mypassword);
-$sql="SELECT * FROM $tbl_name WHERE matricula='$myusername' and password='$encypt_password' and confirmacion='1'";
+$sql="SELECT * FROM $tbl_name WHERE email='$myusername' and password='$encypt_password'";
 $result=mysql_query($sql);
 
 // Mysql_num_row is counting table row
@@ -31,16 +34,15 @@ if($count==1){
 
 // Register $myusername, $mypassword and redirect to file "login_success.php"
 //Start your session
+session_name("FurtherUser");
 session_start();
 //Store the name in the session
-$_SESSION['userlogin'] = $myusername;
+$_SESSION['username'] = $myusername;
 $_SESSION['userid'] = $result['id'];
-session_register("myusername");
-session_register("mypassword"); 
-header("location:http://www.furthercsc.com/user/");
+header("location:$further_host/user/");
 }
 else {
     echo "Wrong Username or Password";
-    header("location:http://www.furthercsc.com/user/login.php?login=fail");
+    header("location:$further_host/user/login.php?login=fail");
 }
 ?>

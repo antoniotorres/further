@@ -1,5 +1,13 @@
 <?php
-include("../database.php");
+  include("../database.php");
+  include("gravator.php");
+  include_once("../settings.php");
+
+session_name("FurtherUser");
+session_start();
+if(!isset($_SESSION['username'])){
+header("location:$further_host/user/login.php");
+}
 $matricula=$_GET["regusername"];
 $userid=$matricula;
 $password=$_GET["regpassword"];
@@ -8,28 +16,27 @@ $encypt_password=md5($password);
 $name=$_GET["regname"];
 $apellido=$_GET["regapellido"];
 $correo=$_GET["regcorreo"];
-$correo_itesm=$matricula . "@itesm.mx";
 $terminos=$_GET["regterminos"];
 
-$query=mysql_query("SELECT * from web_users where matricula='$matricula' ");
+$query=mysql_query("SELECT * from web_users where email='$correo' ");
 $find=mysql_num_rows($query);
 if ($terminos==0) {
-    header("location:http://www.furthercsc.com/user/login.php?error=terminos");
+    header("location:$further_host/user/login.php?error=terminos");
 }
 elseif ($password!==$password2) {
-    header("location:http://www.furthercsc.com/user/login.php?error=password");
+    header("location:$further_host/user/login.php?error=password");
 }
 elseif ($find!==0) {
-    header("location:http://www.furthercsc.com/user/login.php?error=matricula");
+    header("location:$further_host/user/login.php?error=matricula");
 }
 elseif (strlen($matricula)>=10) {
-    header("location:http://www.furthercsc.com/user/login.php?error=ematricula");
+    header("location:$further_host/user/login.php?error=ematricula");
 }
 elseif (strlen($matricula)<=8) {
-    header("location:http://www.furthercsc.com/user/login.php?error=ematricula");
+    header("location:$further_host/user/login.php?error=ematricula");
 }
 else {
-    $query = mysql_query("INSERT INTO web_users (matricula, password, nombre, email_itesm, email, apellido) VALUES ('$matricula', '$encypt_password', '$name', '$correo_itesm', '$correo', '$apellido')");
+    $query = mysql_query("INSERT INTO web_users (matricula, password, nombre, email, apellido) VALUES ('$matricula', '$encypt_password', '$name', '$correo', '$apellido')");
     //error_reporting(E_ALL);
     error_reporting(E_STRICT);
 
@@ -57,20 +64,21 @@ else {
 
     $mail->AddReplyTo("furthercsc@gmail.com","Further");
 
-    $mail->Subject    = "Registro - " . $matricula;
+    $mail->Subject    = "Registro - " . $name;
 
     $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
 
-    $mail->Body    = 'Hola '.$matricula.', <br/> Para confirmar haz clic <a href="http://www.furthercsc.com/user/confirmacion.php?userid='.$userid.'&confauth=x3FF65hXD">aqui. </a> Si no funciona el link copia esto en tu navegador: <a href="http://www.furthercsc.com/user/confirmacion.php?userid='.$userid.'&confauth=x3FF65hXD">http://www.furthercsc.com/user/confirmacion.php?userid='.$userid.'&confauth=x3FF65hXD</a><br/>Gracias,<br/>Further';
+    //$mail->Body    = 'Hola '.$name.', <br/> Para confirmar haz clic <a href="http://www.furthercsc.com/user/confirmacion.php?userid='.$userid.'&confauth=x3FF65hXD">aqui. </a> Si no funciona el link copia esto en tu navegador: <a href="http://www.furthercsc.com/user/confirmacion.php?userid='.$userid.'&confauth=x3FF65hXD">http://www.furthercsc.com/user/confirmacion.php?userid='.$userid.'&confauth=x3FF65hXD</a><br/>Gracias,<br/>Further';
+    $mail->Body    = 'Hola '.$name.', <br/> Tu registro en Further esta completo, ve a nuetra pagina y ayudanos a mejorar el conocimiento.';
 
-    $address = $correo_itesm;
-    $mail->AddAddress($address, $matricula);
+    $address = $correo;
+    $mail->AddAddress($address, $name);
 
     if(!$mail->Send()) {
       echo "Mailer Error: " . $mail->ErrorInfo;
     } else {
       echo "Message sent!";
-      header("location:http://www.furthercsc.com/user/login.php?conf=mandada&temail=".$correo_itesm);
+      header("location:http://www.furthercsc.com/user/login.php?conf=mandada&temail=".$correo);
     }
 }
 ?>
