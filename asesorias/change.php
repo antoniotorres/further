@@ -1,5 +1,12 @@
 <?php
-            include("../database.php");
+  include("../database.php");
+  include_once("../settings.php");
+
+session_name("FurtherUser");
+session_start();
+if(!isset($_SESSION['username'])){
+header("location:$further_host/user/login.php");
+}
 	    function User_Matricula($mid)
 	    {
 	      $user_cond = "id='$mid'";
@@ -12,7 +19,6 @@
 	      } } else {
 	      echo "Nadie"; }
 	    }
-	    session_start();
 	    $fecha = date('Y-m-d', strtotime($fecha));
 	    $materia = $_GET['materia'];
 	    $user_cond = "materia_id='$materia'";
@@ -30,12 +36,12 @@
 	      <div class="well well-small">
 	      <p><b>Dia y Hora:</b> <?php echo date('D, d M Y h:i A', strtotime($result['fecha'])); ?>, <b>Tutor:</b> <?php echo User_Matricula($result['tutor']); ?>, <b>Lugar:</b> <?php echo $result['lugar']; ?>,
 		<form method="get" action="setcita.php">
-		  <input type="hidden" name="usr_matricula" value="<?php echo $_SESSION['userlogin']; ?>" />
+		  <input type="hidden" name="usr_matricula" value="<?php echo $_SESSION['username']; ?>" />
 		  <input type="hidden" name="usr_citaid" value="<?php echo $result['id']; ?>" />
 		  <?php
-		  if(!session_is_registered(myusername)){
+		  if(!isset($_SESSION['username'])){
 	          ?>
-		  <a class="btn" href="http://www.furthercsc.com/user/login.php">Hacer Cita</a>
+		  <a class="btn" href="<?php echo $further_host; ?>/user/login.php">Hacer Cita</a>
 	          <?php } else { ?>
 		  <button class="btn" name="hacercita" value="hacercita" >Hacer Cita</button>
 		  <?php } ?>

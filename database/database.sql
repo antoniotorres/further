@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 10, 2014 at 11:00 PM
+-- Generation Time: Feb 16, 2014 at 04:36 AM
 -- Server version: 5.5.35-0ubuntu0.13.10.2
 -- PHP Version: 5.5.3-1ubuntu2.1
 
@@ -57,9 +57,16 @@ CREATE TABLE IF NOT EXISTS `asesoriasv0_1` (
   `lugar` varchar(255) COLLATE utf8_bin NOT NULL,
   `tutor` int(11) NOT NULL,
   `ocupada` enum('0','1') COLLATE utf8_bin NOT NULL DEFAULT '0',
-  `uer` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `asesoriasv0_1`
+--
+
+INSERT INTO `asesoriasv0_1` (`id`, `materia_id`, `fecha`, `lugar`, `tutor`, `ocupada`, `user`) VALUES
+(1, 1, '2014-02-16 04:30:53', 'Bibloteca', 1, '1', 1);
 
 -- --------------------------------------------------------
 
@@ -150,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `web_users` (
 --
 
 INSERT INTO `web_users` (`id`, `password`, `matricula`, `nombre`, `apellido`, `email`, `register_date`, `last_login`, `asesor`) VALUES
-(1, '5a105e8b9d40e1329780d62ea2265d8a', 'A01193080', 'Jose', 'Torres', 'thetonio96@gmail.com', '2014-02-10 22:49:11', '0000-00-00 00:00:00', '1');
+(1, '5a105e8b9d40e1329780d62ea2265d8a', 'A01193080', 'Jose', 'Torres', 'thetonio96@gmail.com', '2014-02-16 04:24:42', '0000-00-00 00:00:00', '1');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

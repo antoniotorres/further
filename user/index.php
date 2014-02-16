@@ -191,55 +191,55 @@ if($numrows != 0) {
 while ($result = mysql_fetch_array($query)) {
 ?>
 		    <div class="tab-pane" id="tab2">
-		    <p>Esta secci&oacute;n es para Asesores solamente!</p>
-		    <p><b>Citas Actuales</b></p>
-		    <table class="table table-bordered">
-		      <tr style="background-color: #eaeaea;">
-			<th>Materia</th>
-			<th>Fecha</th>
-			<th>Lugar</th>
-			<th>?Ocupada?</th>
-			<th>Usuario</th>
-			<th>Action</th>
-	    
-		      </tr>
-		      <?php
-		      
-		      $query = mysql_query("SELECT * FROM web_users WHERE $user_cond");
-		      $numrows=@mysql_num_rows($query);
-		      if($numrows != 0) {
-		      while ($result = mysql_fetch_array($query)) {
-		      $user_id = $result['id'];
-		      }}
-		      $user_cond2 = "tutor='$user_id'";
-		      $query = mysql_query("SELECT * FROM asesoriasv0_1 WHERE $user_cond2 ORDER BY ID ASC");
-		      $numrows=@mysql_num_rows($query);
-		      if($numrows != 0) {
-		      while ($result = mysql_fetch_array($query)) {
-		      ?>
+		      <p>Esta secci&oacute;n es para Asesores solamente!</p>
+		      <p><b>Citas Actuales</b></p>
+		      <table class="table table-bordered">
+			<tr style="background-color: #eaeaea;">
+			  <th>Materia</th>
+			  <th>Fecha</th>
+			  <th>Lugar</th>
+			  <th>?Ocupada?</th>
+			  <th>Usuario</th>
+			  <th>Action</th>
+	      
+			</tr>
+			<?php
+			
+			$query = mysql_query("SELECT * FROM web_users WHERE $user_cond");
+			$numrows=@mysql_num_rows($query);
+			if($numrows != 0) {
+			while ($result = mysql_fetch_array($query)) {
+			$user_id = $result['id'];
+			}}
+			$user_cond2 = "tutor='$user_id'";
+			$query = mysql_query("SELECT * FROM asesoriasv0_1 WHERE $user_cond2 ORDER BY ID ASC");
+			$numrows=@mysql_num_rows($query);
+			if($numrows != 0) {
+			while ($result = mysql_fetch_array($query)) {
+			?>
 		    
-		      <tr>
-			<td><?php Materia_Name($result['materia_id']); ?></td>
-			<td><?php echo $result['fecha']; ?></td>
-			<td><?php echo $result['lugar']; ?></td>
-			<td><?php if ($result['ocupada'] == '0') { ?><i class="icon-remove"></i><?php } ?> <?php if ($result['ocupada'] == '1') { ?><i class="icon-ok"></i><?php } ?></td>
-			<td><?php User_Matricula($result['user']); ?></td>
-			<td>
-			    <a class="btn btn-primary" href="asesor-upt.php?route=DELETE&id=<?php echo $result['id']; ?>"><i class="icon-trash icon-white"></i> Delete</a>
-			</td>
-		      </tr>
-			  <?php } } else { ?>
-			  <tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		      </tr>
-			    <?php }?>
-		    </table>
-		    <hr>
+			<tr>
+			  <td><?php Materia_Name($result['materia_id']); ?></td>
+			  <td><?php echo $result['fecha']; ?></td>
+			  <td><?php echo $result['lugar']; ?></td>
+			  <td><?php if ($result['ocupada'] == '0') { ?><i class="icon-remove"></i><?php } ?> <?php if ($result['ocupada'] == '1') { ?><i class="icon-ok"></i><?php } ?></td>
+			  <td><?php User_Matricula($result['user']); ?></td>
+			  <td>
+			      <a class="btn btn-primary" href="asesor-upt.php?route=DELETE&id=<?php echo $result['id']; ?>"><i class="icon-trash icon-white"></i> Delete</a>
+			  </td>
+			</tr>
+			<?php } } else { ?>
+			<tr>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+			</tr>
+			<?php }?>
+		      </table>
+		      <hr>
 		      <p><b>Crear Citas</b></p>
 		      <div class="crear">
 		        <form class="form-inline"  action="asesor-upt.php" method="GET">
@@ -278,8 +278,8 @@ while ($result = mysql_fetch_array($query)) {
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo $further_host;?>/jquery-1.7.2.min.js"></script>
-    <script src="<?php echo $further_host;?>/ui/1.8.18/jquery-ui.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script src="<?php echo $further_host;?>/js/bootstrap.js"></script>
     <script src="<?php echo $further_host;?>/js/jquery-ui-timepicker-addon.js"></script>
     <script>
