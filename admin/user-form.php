@@ -131,7 +131,7 @@ function Redirect($url, $permanent = false)
         $encrypt_password = md5($_GET[add_password]);
         $email_itesm = $_GET[add_matricula]."@itesm.mx";
         
-      $query = mysql_query("INSERT INTO web_users (matricula, password, nombre, apellido, email, email_itesm, confirmacion, asesor) VALUES ('$_GET[add_matricula]', '$encrypt_password', '$_GET[add_nombre]', '$_GET[add_apellido]', '$_GET[add_email]', '$email_itesm', '1', '$_GET[add_asesor]')") or die(mysql_error());;
+      $query = mysql_query("INSERT INTO web_users (matricula, password, nombre, apellido, email, asesor) VALUES ('$_GET[add_matricula]', '$encrypt_password', '$_GET[add_nombre]', '$_GET[add_apellido]', '$_GET[add_email]', '$_GET[add_asesor]')") or die(mysql_error());;
      Redirect('user-list.php', false);
       }
     if ($_GET['EDIT']=='EDIT')
